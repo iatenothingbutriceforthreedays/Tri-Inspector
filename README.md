@@ -39,6 +39,7 @@ TriInspector has built-in samples at `Tools/Tri Inspector/Samples` menu.
         <td valign="top">
             <ul>
                 <li>Required</li>
+                <li>Required Get</li>
                 <li>Validate Input</li>
                 <li>Info Box</li>
                 <li>Assets Only</li>
@@ -59,6 +60,7 @@ TriInspector has built-in samples at `Tools/Tri Inspector/Samples` menu.
                 <li>Unit</li>
                 <li>Preview Object</li>
                 <li>Preview Mesh</li>
+                <li>Layer</li>
             </ul>
         </td>
         <td valign="top">
@@ -250,6 +252,21 @@ private void FixTarget()
 {
     target = GetComponent<Transform>();
 }
+```
+
+#### RequiredGet
+
+![RequiredGet](https://github.com/user-attachments/assets/956ef00b-79c8-4aea-9537-5e8e74fb6f9b)
+
+```csharp
+[RequiredGet]
+public Transform myTransform;
+
+[RequiredGet(InParents = true)]
+public Animator animator; // Search for any Animator in parents
+
+[RequiredGet(InChildren = true, IncludeSelf = false)]
+public MeshRenderer[] childrenMeshes; // Search all meshes in children
 ```
 
 #### ValidateInput
@@ -488,6 +505,12 @@ public GameObject meshNoFoldoutNoMesh;
 [LabelWidth(200f)]
 [PreviewMesh(200, 160, false)]
 public GameObject meshNoFoldoutWithMesh;
+```
+
+#### Layer
+
+```csharp
+[Layer] public int layer;
 ```
 
 ### Styling
