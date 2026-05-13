@@ -9,6 +9,8 @@ namespace TriInspector
     {
         public float Height { get; set; }
 
+        public bool NewLine { get; set; } = false;
+
         public bool DrawDefaultField { get; set; } = true;
     }
 }

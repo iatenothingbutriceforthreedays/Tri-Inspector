@@ -46,11 +46,24 @@ namespace TriInspector.Drawers
                     xMax = position.xMax - previewSize,
                     height = base.GetHeight(position.width - previewSize, property, next),
                 };
-                var previewRect = new Rect(position)
+                Rect previewRect;
+                if (Attribute.NewLine)
                 {
-                    xMin = contentRect.xMax,
-                    height = previewSize,
-                };
+                    // Center the preview horizontally in the available position
+                    float centerX = position.xMin + (position.width - previewSize) / 2f;
+                    previewRect = new Rect(centerX,
+                        position.yMin + base.GetHeight(position.width - previewSize, property, next),
+                        previewSize,
+                        previewSize);
+                }
+                else
+                {
+                    previewRect = new Rect(position)
+                    {
+                        xMin = contentRect.xMax,
+                        height = previewSize,
+                    };
+                }
 
                 base.OnGUI(contentRect, property, next);
                 DrawPreview(previewRect, property);
@@ -138,7 +151,10 @@ namespace TriInspector.Drawers
 
         private float GetPreviewSize()
         {
-            return Attribute.Height > 0 ? Attribute.Height : EditorGUIUtility.singleLineHeight * 4;
+            float h = Attribute.Height > 0 ? Attribute.Height : EditorGUIUtility.singleLineHeight * 4;
+            if (Attribute.NewLine)
+                h += EditorGUIUtility.singleLineHeight;
+            return h;
         }
     }
 }
